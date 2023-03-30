@@ -6,10 +6,20 @@
     <string name="edit_tasks">Edit Tasks</string>
     <!-- Strings used for selection -->
     <string name="delete_tasks">Delete selected tasks(s)</string>
-    <string name="titlec">Title:</string>
-    <string name="due_date">Due Date:</string>
-    
-
+    <string name="title_c">Title:</string>
+    <string name="due_date_c">Due Date:</string>
+    <string name="priority_c">Priority:</string>
+    <string name="category">Category:</string>
+    <string name="create">Create</string>
+    <string name="color_select">Select a Color</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+    <!-- Strings used for main activity -->
     <string name="num_of_tasks"># of Tasks:</string>
+    <string name="due_today">Due today:</string>
+    <string name="overdue">Overdue:</string>
     <string name="title">Title</string>
+    <string name="due_date">Due date</string>
+    <string name="priority">Priority</string>
 </resources>
