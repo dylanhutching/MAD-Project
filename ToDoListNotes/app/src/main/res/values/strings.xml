@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">To-Do List &amp; Notes</string>
     <!-- Strings used for navigation -->
-    <string name="new_tasks">New Tasks</string>
+    <string name="new_task">New Task</string>
     <string name="new_category">New Category</string>
-    <string name="edit_tasks">Edit Tasks</string>
+    <string name="edit_task">Edit Task</string>
     <!-- Strings used for selection -->
     <string name="delete_tasks">Delete selected tasks(s)</string>
     <string name="title_c">Title:</string>
@@ -15,6 +15,7 @@
     <string name="high">High</string>
     <string name="medium">Medium</string>
     <string name="low">Low</string>
+    <string name="enter_an_item">Enter an item</string>
     <!-- Strings used for main activity -->
     <string name="num_of_tasks"># of Tasks:</string>
     <string name="due_today">Due today:</string>

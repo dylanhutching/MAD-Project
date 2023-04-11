@@ -1,76 +1,68 @@
 package com.ung.to_dolistnotes;
 
-import android.os.Bundle;
+import android.content.Context;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.google.android.material.snackbar.Snackbar;
+public class MainActivity {
 
-import androidx.appcompat.app.AppCompatActivity;
+    public static final String FILENAME = "todolistnotes.txt";
 
-import android.view.View;
+    private Context mContext;
+    private List<String> mTaskList;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+    public ToDoList(Context context) {
+        mContext = context;
+        mTaskList = new ArrayList<>();
+    }
 
-import com.ung.to_dolistnotes.databinding.ActivityMainBinding;
+    public void addItem(String item) throws IllegalArgumentException {
+        mTaskList.add(item);
+    }
 
-import android.view.Menu;
-import android.view.MenuItem;
+    public String[] getItems() {
+        String[] items = new String[mTaskList.size()];
+        return mTaskList.toArray(items);
+    }
 
-public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void saveToFile() throws IOException {
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // Write list to file in internal storage
+        FileOutputStream outputStream = mContext.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+        writeListToStream(outputStream);
+    }
 
-        setSupportActionBar(binding.toolbar);
+    public void readFromFile() throws IOException {
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        // Read in list from file in internal storage
+        FileInputStream inputStream = mContext.openFileInput(FILENAME);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                mTaskList.add(line);
             }
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
         }
-
-        return super.onOptionsItemSelected(item);
+        catch (FileNotFoundException ex) {
+            // Ignore
+        }
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    private void writeListToStream(FileOutputStream outputStream) {
+        PrintWriter writer = new PrintWriter(outputStream);
+        for (String item : mTaskList) {
+            writer.println(item);
+        }
+        writer.close();
     }
 }
