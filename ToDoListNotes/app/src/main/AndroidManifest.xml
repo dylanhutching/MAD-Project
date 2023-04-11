@@ -9,14 +9,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ToDoListNotes"
+        android:theme="@style/Theme.ToDoList"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ToDoListNotes.NoActionBar">
+            android:theme="@style/Theme.ToDoList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

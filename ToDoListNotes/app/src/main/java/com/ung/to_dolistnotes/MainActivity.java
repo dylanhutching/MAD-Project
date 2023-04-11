@@ -1,68 +1,87 @@
 package com.ung.to_dolistnotes;
 
-import android.content.Context;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity {
+public class MainActivity extends AppCompatActivity {
 
-    public static final String FILENAME = "todolistnotes.txt";
+    private ToDoListNotes mToDoList;
+    private EditText mItemEditText;
+    private TextView mItemListTextView;
 
-    private Context mContext;
-    private List<String> mTaskList;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    public ToDoList(Context context) {
-        mContext = context;
-        mTaskList = new ArrayList<>();
+        mItemEditText = findViewById(R.id.todo_item);
+        mItemListTextView = findViewById(R.id.item_list);
+
+        findViewById(R.id.add_button).setOnClickListener(view -> addButtonClick());
+        //findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
+
+        mToDoList = new ToDoListNotes(this);
     }
 
-    public void addItem(String item) throws IllegalArgumentException {
-        mTaskList.add(item);
-    }
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    public String[] getItems() {
-        String[] items = new String[mTaskList.size()];
-        return mTaskList.toArray(items);
-    }
-
-
-
-    public void saveToFile() throws IOException {
-
-        // Write list to file in internal storage
-        FileOutputStream outputStream = mContext.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-        writeListToStream(outputStream);
-    }
-
-    public void readFromFile() throws IOException {
-
-        // Read in list from file in internal storage
-        FileInputStream inputStream = mContext.openFileInput(FILENAME);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                mTaskList.add(line);
-            }
+        try {
+            // Attempt to load a previously saved list
+            mToDoList.readFromFile();
+            displayList();
         }
-        catch (FileNotFoundException ex) {
-            // Ignore
+        catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
-    private void writeListToStream(FileOutputStream outputStream) {
-        PrintWriter writer = new PrintWriter(outputStream);
-        for (String item : mTaskList) {
-            writer.println(item);
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        try {
+            // Save list for later
+            mToDoList.saveToFile();
         }
-        writer.close();
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
+
+    private void addButtonClick() {
+
+        // Ignore any leading or trailing spaces
+        String item = mItemEditText.getText().toString().trim();
+
+        // Clear the EditText so it's ready for another item
+        mItemEditText.setText("");
+
+        // Add the item to the list and display it
+        if (item.length() > 0) {
+            mToDoList.addItem(item);
+            displayList();
+        }
+    }
+
+    private void displayList() {
+
+        // Display a numbered list of items
+        StringBuffer itemText = new StringBuffer();
+        String[] items = mToDoList.getItems();
+        for (int i = 0; i < items.length; i++) {
+            itemText.append(i + 1).append(". ").append(items[i]).append("\n");
+        }
+
+        mItemListTextView.setText(itemText);
+    }
+
+    /*private void clearButtonClick() {
+        mToDoList.clear();
+        displayList();
+    }*/
 }
