@@ -23,4 +23,6 @@
     <string name="title">Title</string>
     <string name="due_date">Due date</string>
     <string name="priority">Priority</string>
+    <!-- Strings used for app development -->
+    
 </resources>
