@@ -4,8 +4,8 @@
     <string name="new_task">New Task</string>
     <string name="new_category">New Category</string>
     <string name="edit_task">Edit Task</string>
+    <string name="delete_task">Delete selected tasks(s)</string>
     <!-- Strings used for selection -->
-    <string name="delete_tasks">Delete selected tasks(s)</string>
     <string name="title_c">Title:</string>
     <string name="due_date_c">Due Date:</string>
     <string name="priority_c">Priority:</string>

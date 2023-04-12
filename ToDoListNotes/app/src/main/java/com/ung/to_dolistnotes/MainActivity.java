@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         mItemListTextView = findViewById(R.id.item_list);
 
         findViewById(R.id.add_button).setOnClickListener(view -> addButtonClick());
-        //findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
+        //findViewById(R.id.delete_task).setOnClickListener(view -> deleteButtonClick());
 
         mToDoList = new ToDoListNotes(this);
     }
@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         mItemListTextView.setText(itemText);
     }
 
-    /*private void clearButtonClick() {
-        mToDoList.clear();
+    private void deleteButtonClick() {
+        mToDoList.delete();
         displayList();
-    }*/
+    }
 }

@@ -32,7 +32,9 @@ public class ToDoListNotes {
         return mTaskList.toArray(items);
     }
 
-
+    public void delete() {
+        mTaskList.clear();
+    }
 
     public void saveToFile() throws IOException {
 
@@ -46,6 +48,7 @@ public class ToDoListNotes {
         // Read in list from file in internal storage
         FileInputStream inputStream = mContext.openFileInput(FILENAME);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            mTaskList.clear();
 
 
             String line;
