@@ -11,6 +11,9 @@ public class MainActivity extends AppCompatActivity {
     private ToDoList mToDoList;
     private EditText mItemEditText;
     private TextView mItemListTextView;
+    private TextView mItemNumTodayTextView;
+    private TextView mItemNumOverdueTextView;
+    private TextView mItemNumTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         mItemEditText = findViewById(R.id.todo_item);
         mItemListTextView = findViewById(R.id.item_list);
+        mItemNumTodayTextView = findViewById(R.id.due_today);
+        mItemNumOverdueTextView = findViewById(R.id.overdue);
 
         findViewById(R.id.add_button).setOnClickListener(view -> addButtonClick());
         findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             // Attempt to load a previously saved list
             mToDoList.readFromFile();
             displayList();
+            //displayNum();
         }
         catch (IOException ex) {
             ex.printStackTrace();
@@ -65,8 +71,20 @@ public class MainActivity extends AppCompatActivity {
         if (item.length() > 0) {
             mToDoList.addItem(item);
             displayList();
+            //displayNum();
         }
     }
+
+    /*private void displayNum() {
+        String[] items = mToDoList.getItems();
+        int u = 0;
+        for (int i = 0; i < items.length; i++) {
+        u++;
+        }
+
+        mItemNumTodayTextView.setText(u);
+        mItemNumOverdueTextView.setText(u);
+    }*/
 
     private void displayList() {
 
@@ -83,5 +101,6 @@ public class MainActivity extends AppCompatActivity {
     private void clearButtonClick() {
         mToDoList.clear();
         displayList();
+        //displayNum();
     }
 }
