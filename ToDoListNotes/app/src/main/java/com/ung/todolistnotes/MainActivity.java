@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             // Attempt to load a previously saved list
             mToDoList.readFromFile();
             displayList();
-            //displayNum();
+            displayNum();
         }
         catch (IOException ex) {
             ex.printStackTrace();
@@ -65,26 +65,24 @@ public class MainActivity extends AppCompatActivity {
         String item = mItemEditText.getText().toString().trim();
 
         // Clear the EditText so it's ready for another item
-        mItemEditText.setText("");
+        //mItemEditText.setText("");
 
         // Add the item to the list and display it
         if (item.length() > 0) {
             mToDoList.addItem(item);
             displayList();
-            //displayNum();
+            displayNum();
         }
     }
 
-    /*private void displayNum() {
+    private void displayNum() {
         String[] items = mToDoList.getItems();
-        int u = 0;
-        for (int i = 0; i < items.length; i++) {
-        u++;
-        }
+        int u = items.length;
+        String numItems = Integer.toString(u);
 
-        mItemNumTodayTextView.setText(u);
-        mItemNumOverdueTextView.setText(u);
-    }*/
+        mItemNumTodayTextView.setText(numItems);
+        mItemNumOverdueTextView.setText(numItems);
+    }
 
     private void displayList() {
 
@@ -101,6 +99,6 @@ public class MainActivity extends AppCompatActivity {
     private void clearButtonClick() {
         mToDoList.clear();
         displayList();
-        //displayNum();
+        displayNum();
     }
 }
