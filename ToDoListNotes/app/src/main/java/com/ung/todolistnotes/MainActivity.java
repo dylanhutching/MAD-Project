@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
+import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
 
         mToDoList = new ToDoList(this);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
