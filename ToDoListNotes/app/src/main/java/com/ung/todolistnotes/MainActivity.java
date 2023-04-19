@@ -1,11 +1,15 @@
 package com.ung.todolistnotes;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import android.view.Menu;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +38,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.appbar_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.tasks:
+                setContentView(R.layout.activity_main);
+                Toast.makeText(this, "Tasks", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.delete_task:
+                clearButtonClick();
+                //This code will change with our new tasks list but this is for demo purposes
+                return true;
+            case R.id.new_category:
+                setContentView(R.layout.activity_new_category);
+                Toast.makeText(this, "New Category", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.edit_task:
+                setContentView(R.layout.activity_new_tasks);
+                Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@
     <string name="app_name">To-Do List &amp; Notes</string>
     <!-- Strings used for navigation -->
     <string name="new_task">New Task</string>
+    <string name="tasks">Tasks</string>
     <string name="new_category">New Category</string>
     <string name="edit_task">Edit Task</string>
     <string name="delete_task">Delete selected tasks(s)</string>
