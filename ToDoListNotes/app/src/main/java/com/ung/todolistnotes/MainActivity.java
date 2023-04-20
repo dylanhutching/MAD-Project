@@ -8,6 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
+
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayNum() {
-        String[] items = mToDoList.getItems();
+        Task[] items = mToDoList.getItems();
         int u = items.length;
         String numItems = Integer.toString(u);
 
@@ -103,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
     private void addButtonClick() {
 
         // Ignore any leading or trailing spaces
-        String item = mItemEditText.getText().toString().trim();
+        String taskDescription = mItemEditText.getText().toString().trim();
 
         // Clear the EditText so it's ready for another item
         mItemEditText.setText("");
 
         // Add the item to the list and display it
-        if (item.length() > 0) {
-            mToDoList.addItem(item);
+        if (taskDescription.length() > 0) {
+            mToDoList.addItem(new Task(taskDescription, LocalDate.of(2000,11,6),1,1));
             displayList();
             displayNum();
         }
@@ -120,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Display a numbered list of items
         StringBuffer itemText = new StringBuffer();
-        String[] items = mToDoList.getItems();
+        Task[] items = mToDoList.getItems();
         for (int i = 0; i < items.length; i++) {
-            itemText.append(i + 1).append(". ").append(items[i]).append("\n");
+            itemText.append(i + 1).append(". ").append(items[i].getDesc()).append("\n");
         }
 
         mItemListTextView.setText(itemText);

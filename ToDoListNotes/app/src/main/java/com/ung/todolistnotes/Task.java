@@ -1,16 +1,16 @@
 package com.ung.todolistnotes;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Task {
 
     private String desc;
-    private Date date;
+    private LocalDate date; //Switched to use LocalDate for ease of use.
     private int priority;
     private int category;
 
-    public Task(String desc, Date date, int priority, int category){
-        desc = this.desc;
+    public Task(String desc, LocalDate date, int priority, int category){
+        this.desc = desc;
         date = this.date;
         priority = this.priority;
         category = this.category;
@@ -20,7 +20,7 @@ public class Task {
         return desc;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -36,7 +36,7 @@ public class Task {
         this.desc = desc;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

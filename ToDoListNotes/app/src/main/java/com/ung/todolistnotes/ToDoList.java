@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,19 +18,19 @@ public class ToDoList {
     public static final String FILENAME = "todolist.txt";
 
     private Context mContext;
-    private List<String> mTaskList;
+    private List<Task> mTaskList;
 
     public ToDoList(Context context) {
         mContext = context;
         mTaskList = new ArrayList<>();
     }
 
-    public void addItem(String item) throws IllegalArgumentException {
+    public void addItem(Task item) throws IllegalArgumentException {
         mTaskList.add(item);
     }
 
-    public String[] getItems() {
-        String[] items = new String[mTaskList.size()];
+    public Task[] getItems() {
+        Task[] items = new Task[mTaskList.size()];
         return mTaskList.toArray(items);
     }
 
@@ -53,7 +54,15 @@ public class ToDoList {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                mTaskList.add(line);
+                String[] taskFields = line.split(",");  //taskFields(description, etc.) are separated by commas. Tasks themselves are separated by line.
+
+                //Task newTask = new Task(taskFields[0], taskFields[1], taskFields[2], taskFields[3]);
+                mTaskList.add(new Task("task", LocalDate.of(2000,1,1),1,1)); //exchange this once code works properly
+
+                /*String fieldsConcatenated = ""; //for testing.
+                for(int i = 0; i < taskFields.length; i++)
+                    fieldsConcatenated += taskFields[i] + "    ";
+                System.out.println(fieldsConcatenated);*/
             }
         }
         catch (FileNotFoundException ex) {
@@ -63,8 +72,9 @@ public class ToDoList {
 
     private void writeListToStream(FileOutputStream outputStream) {
         PrintWriter writer = new PrintWriter(outputStream);
-        for (String item : mTaskList) {
-            writer.println(item);
+        for (Task task : mTaskList) {
+            writer.println(task.getDesc() +","+ task.getDate()+","+ task.getPriority()+","+ task.getCategory());
+            System.out.println(task.getDesc() +","+ task.getDate()+","+ task.getPriority()+","+ task.getCategory());
         }
         writer.close();
     }
