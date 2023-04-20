@@ -1,6 +1,7 @@
 package com.ung.todolistnotes;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -74,7 +75,7 @@ public class ToDoList {
         PrintWriter writer = new PrintWriter(outputStream);
         for (Task task : mTaskList) {
             writer.println(task.getDesc() +","+ task.getDate()+","+ task.getPriority()+","+ task.getCategory());
-            System.out.println(task.getDesc() +","+ task.getDate()+","+ task.getPriority()+","+ task.getCategory());
+            Log.i("Task Written" ,task.getDesc() + "," + task.getDate() + "," + task.getPriority() + "," + task.getCategory());
         }
         writer.close();
     }

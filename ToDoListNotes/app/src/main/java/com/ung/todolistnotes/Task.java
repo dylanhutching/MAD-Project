@@ -11,9 +11,9 @@ public class Task {
 
     public Task(String desc, LocalDate date, int priority, int category){
         this.desc = desc;
-        date = this.date;
-        priority = this.priority;
-        category = this.category;
+        this.date = date ;
+        this.priority = priority;
+        this.category = category;
     }
 
     public String getDesc() {
