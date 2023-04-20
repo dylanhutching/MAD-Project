@@ -55,15 +55,21 @@ public class ToDoList {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] taskFields = line.split(",");  //taskFields(description, etc.) are separated by commas. Tasks themselves are separated by line.
+                String[] taskFields = line.split(",");  //taskFields(description, date, etc.) are separated by commas. Tasks themselves are separated by line.
 
-                //Task newTask = new Task(taskFields[0], taskFields[1], taskFields[2], taskFields[3]);
-                mTaskList.add(new Task("task", LocalDate.of(2000,1,1),1,1)); //exchange this once code works properly
+                //get description
+                String description = taskFields[0];
+                //parse duedate
+                String[] dateStringSplit = taskFields[1].split("-"); //This splits the date into an array of strings. The date is saved in file with a format of "2000-11-06". Indexes equal 0==2000, 1==11, and 2==06.
+                LocalDate dueDate = LocalDate.of(Integer.parseInt(dateStringSplit[0]), Integer.parseInt(dateStringSplit[1]), Integer.parseInt(dateStringSplit[2]));   //This line creates a new LocalDate called dueDate by parsing the String[] above as integers.
+                //parse priority
+                int priority = Integer.parseInt(taskFields[2]);
+                //parse category
+                int category = Integer.parseInt(taskFields[3]);
 
-                /*String fieldsConcatenated = ""; //for testing.
-                for(int i = 0; i < taskFields.length; i++)
-                    fieldsConcatenated += taskFields[i] + "    ";
-                System.out.println(fieldsConcatenated);*/
+                //pass above fields to create new task. Then add task to list.
+                Task newTask = new Task(description, dueDate, priority, category);
+                mTaskList.add(newTask);
             }
         }
         catch (FileNotFoundException ex) {
@@ -75,7 +81,7 @@ public class ToDoList {
         PrintWriter writer = new PrintWriter(outputStream);
         for (Task task : mTaskList) {
             writer.println(task.getDesc() +","+ task.getDate()+","+ task.getPriority()+","+ task.getCategory());
-            Log.i("Task Written" ,task.getDesc() + "," + task.getDate() + "," + task.getPriority() + "," + task.getCategory());
+            //Log.i("Task Written" ,task.getDesc() + "," + task.getDate() + "," + task.getPriority() + "," + task.getCategory());
         }
         writer.close();
     }
