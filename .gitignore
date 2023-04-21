@@ -87,3 +87,5 @@ ToDoListNotes/build.gradle
 ToDoListNotes/gradle.properties
 ToDoListNotes/gradle.properties
 ToDoListNotes/gradle/wrapper/gradle-wrapper.properties
+ToDoListNotes/.idea/compiler.xml
+ToDoListNotes/.idea/misc.xml
