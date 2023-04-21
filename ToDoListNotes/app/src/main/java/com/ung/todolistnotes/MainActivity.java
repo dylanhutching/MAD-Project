@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -23,13 +26,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView mItemNumTodayTextView;
     private TextView mItemNumOverdueTextView;
     private TextView mItemNumTextView;
+    private LinearLayoutManager llm;
+    private RecyclerView rvTasks;
+    private TasksAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mItemEditText = findViewById(R.id.todo_item);
-        mItemListTextView = findViewById(R.id.item_list);
+        //mItemListTextView = findViewById(R.id.item_list);
         mItemNumTodayTextView = findViewById(R.id.due_today);
         mItemNumOverdueTextView = findViewById(R.id.overdue);
         mItemNumTextView = findViewById(R.id.num_of_tasks);
@@ -38,8 +45,18 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
 
         mToDoList = new ToDoList(this);
+
+        //starts the recycler view by passing in data through adapter and setting a LayoutManager to position the items
+        llm = new LinearLayoutManager(this);
+        rvTasks = (RecyclerView) findViewById(R.id.rvTasks);
+        adapter = new TasksAdapter(mToDoList.getTaskList());
+
+        rvTasks.setLayoutManager(llm);
+        rvTasks.setAdapter(adapter);
+
         displayNum();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.appbar_menu, menu);
@@ -76,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             // Attempt to load a previously saved list
             mToDoList.readFromFile();
-            displayList();
+            //displayList();
+            displayNum();
         }
         catch (IOException ex) {
             ex.printStackTrace();
@@ -117,12 +135,13 @@ public class MainActivity extends AppCompatActivity {
         // Add the item to the list and display it
         if (taskDescription.length() > 0) {
             mToDoList.addItem(new Task(taskDescription, LocalDate.of(2000,11,6),1,1));
-            displayList();
+            //displayList();
+            adapter.notifyDataSetChanged();
             displayNum();
         }
     }
 
-    private void displayList() {
+    /*private void displayList() {
 
         // Display a numbered list of items
         StringBuffer itemText = new StringBuffer();
@@ -132,11 +151,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mItemListTextView.setText(itemText);
-    }
+    }*/
 
     private void clearButtonClick() {
         mToDoList.clear();
-        displayList();
+        try {
+            // Save list for later
+            mToDoList.saveToFile();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        //displayList();
+        adapter.notifyDataSetChanged();
         displayNum();
     }
 }
