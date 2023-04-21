@@ -9,38 +9,130 @@
 
 
     <TextView
-        android:labelFor="@id/category_title"
-        android:layout_height="wrap_content"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:labelFor="@id/category_title"
         android:text="@string/title_c"
-        android:layout_marginTop="30dp"
         android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@id/category_title"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/category_title"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
         android:inputType="text"
         android:maxLines="1"
         android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/color_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:gravity="center"
+        android:text="@string/color_select"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/color_select">
+
+
+        <RadioButton
+            android:id="@+id/radio_orange"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/orange"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_yellow"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/yellow"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_red"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/red"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_green_light"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/green_light"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_blue"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/blue"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_teal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/teal"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_blue_light"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/blue_light"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_purple"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/purple"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_pink"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/pink"
+            android:onClick="onColorSelected" />
+
+        <RadioButton
+            android:id="@+id/radio_black"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/black"
+            android:onClick="onColorSelected" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/add_category_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="75dp"
-        android:text="@string/create"
-        android:paddingVertical="20dp"
         android:paddingHorizontal="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:paddingVertical="20dp"
+        android:text="@string/create"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

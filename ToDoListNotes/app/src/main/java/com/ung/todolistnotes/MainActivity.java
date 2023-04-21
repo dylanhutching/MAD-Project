@@ -16,7 +16,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private final static String TAG = "MainActivity";
+    //private final static String TAG = "MainActivity";
     private ToDoList mToDoList;
     private EditText mItemEditText;
     private TextView mItemListTextView;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mItemNumTextView = findViewById(R.id.num_of_tasks);
 
         findViewById(R.id.add_button).setOnClickListener(view -> addButtonClick());
-        findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
+        //findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
 
         mToDoList = new ToDoList(this);
         displayNum();
@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_new_category);
                 Toast.makeText(this, "New Category", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.edit_task:
+            case R.id.new_task:
                 setContentView(R.layout.activity_new_tasks);
-                Toast.makeText(this, "Edit Task", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "New Task", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

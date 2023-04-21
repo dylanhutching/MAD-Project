@@ -1,6 +1,6 @@
 <resources>
     <style name="Theme.ToDoListNotes" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/green_500</item>
-        <item name="colorPrimaryDark">@color/green_800</item>
+        <item name="colorPrimary">@color/green_light</item>
+        <item name="colorPrimaryDark">@color/green_dark</item>
     </style>
 </resources>
