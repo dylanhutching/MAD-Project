@@ -26,6 +26,10 @@ public class ToDoList {
         mTaskList = new ArrayList<>();
     }
 
+    public List<Task> getTaskList() {
+        return mTaskList;
+    }
+
     public void addItem(Task item) throws IllegalArgumentException {
         mTaskList.add(item);
     }
