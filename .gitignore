@@ -83,8 +83,6 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
-ToDoListNotes/.idea/compiler.xml
-ToDoListNotes/.idea/misc.xml
 ToDoListNotes/build.gradle
 ToDoListNotes/gradle.properties
 ToDoListNotes/gradle.properties
