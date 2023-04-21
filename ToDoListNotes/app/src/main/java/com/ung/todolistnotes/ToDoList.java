@@ -39,6 +39,14 @@ public class ToDoList {
         mTaskList.clear();
     }
 
+    private void writeListToStream(FileOutputStream outputStream) {
+        PrintWriter writer = new PrintWriter(outputStream);
+        for (Task task : mTaskList) {
+            writer.println(task.toString());
+        }
+        writer.close();
+    }
+
     public void saveToFile() throws IOException {
 
         // Write list to file in internal storage
@@ -47,7 +55,6 @@ public class ToDoList {
     }
 
     public void readFromFile() throws IOException {
-
         // Read in list from file in internal storage
         FileInputStream inputStream = mContext.openFileInput(FILENAME);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -55,21 +62,10 @@ public class ToDoList {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] taskFields = line.split(",");  //taskFields(description, date, etc.) are separated by commas. Tasks themselves are separated by line.
+                Task newTask = ConvertLineToTask(line); //THIS IS THE NEW METHOD CALL
 
-                //get description
-                String description = taskFields[0];
-                //parse duedate
-                String[] dateStringSplit = taskFields[1].split("-"); //This splits the date into an array of strings. The date is saved in file with a format of "2000-11-06". Indexes equal 0==2000, 1==11, and 2==06.
-                LocalDate dueDate = LocalDate.of(Integer.parseInt(dateStringSplit[0]), Integer.parseInt(dateStringSplit[1]), Integer.parseInt(dateStringSplit[2]));   //This line creates a new LocalDate called dueDate by parsing the String[] above as integers.
-                //parse priority
-                int priority = Integer.parseInt(taskFields[2]);
-                //parse category
-                int category = Integer.parseInt(taskFields[3]);
-
-                //pass above fields to create new task. Then add task to list.
-                Task newTask = new Task(description, dueDate, priority, category);
                 mTaskList.add(newTask);
+                Log.i("AndroidRuntime", newTask.toString()); //this line displays tasks as they are being read. FOR DEBUGGING. pro tip set logcat filter to AndroidRuntime
             }
         }
         catch (FileNotFoundException ex) {
@@ -77,12 +73,33 @@ public class ToDoList {
         }
     }
 
-    private void writeListToStream(FileOutputStream outputStream) {
-        PrintWriter writer = new PrintWriter(outputStream);
-        for (Task task : mTaskList) {
-            writer.println(task.getDesc() +","+ task.getDate()+","+ task.getPriority()+","+ task.getCategory());
-            //Log.i("Task Written" ,task.getDesc() + "," + task.getDate() + "," + task.getPriority() + "," + task.getCategory());
+    private Task ConvertLineToTask(String line){
+        String[] taskFields = line.split("____");  //taskFields(description, date, etc.) are separated by commas. Tasks themselves are separated by line.
+
+        //get description
+        String description = taskFields[0];
+
+        //initialize other variables
+        LocalDate dueDate = null;
+        int priority = 1;
+        int category = 1;
+
+        //IF file includes dates prios and categories then do normal stuff. ELSE (if file only includes strings) create new task object for that string, and save to file.
+        if(taskFields.length == 4){
+            //parse duedate
+            if(!taskFields[1].equals("null")) {
+                String[] dateStringSplit = taskFields[1].split("-"); //This splits the date into an array of strings. The date is saved in file with a format of "2000-11-06". Indexes equal 0==2000, 1==11, and 2==06.
+                dueDate = LocalDate.of(Integer.parseInt(dateStringSplit[0]), Integer.parseInt(dateStringSplit[1]), Integer.parseInt(dateStringSplit[2]));   //This line creates a new LocalDate called dueDate by parsing the String[] above as integers.
+            }
+
+            //parse priority
+            priority = Integer.parseInt(taskFields[2]);
+
+            //parse category
+            category = Integer.parseInt(taskFields[3]);
         }
-        writer.close();
+
+        //pass above fields to create new task. Then add task to list.
+        return new Task(description, dueDate, priority, category);
     }
 }

@@ -47,4 +47,9 @@ public class Task {
     public void setPriority(int priority) {
         this.priority = priority;
     }
+
+    public String toString(){
+        String result = getDesc() + "____" + getDate() + "____" + getPriority() + "____" + getCategory();
+        return result;
+    }
 }
