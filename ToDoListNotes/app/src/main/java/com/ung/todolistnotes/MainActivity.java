@@ -36,13 +36,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mItemEditText = findViewById(R.id.todo_item);
-        //mItemListTextView = findViewById(R.id.item_list);
         mItemNumTodayTextView = findViewById(R.id.due_today);
         mItemNumOverdueTextView = findViewById(R.id.overdue);
         mItemNumTextView = findViewById(R.id.num_of_tasks);
 
         findViewById(R.id.add_button).setOnClickListener(view -> addButtonClick());
-        //findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
 
         mToDoList = new ToDoList(this);
 
