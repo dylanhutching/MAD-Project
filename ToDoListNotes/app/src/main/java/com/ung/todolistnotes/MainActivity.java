@@ -1,6 +1,7 @@
 package com.ung.todolistnotes;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
+    private final static String TAG = "MainActivity";
     private ToDoList mToDoList;
     private EditText mItemEditText;
     private TextView mItemListTextView;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mItemListTextView = findViewById(R.id.item_list);
         mItemNumTodayTextView = findViewById(R.id.due_today);
         mItemNumOverdueTextView = findViewById(R.id.overdue);
+        mItemNumTextView = findViewById(R.id.num_of_tasks);
 
         findViewById(R.id.add_button).setOnClickListener(view -> addButtonClick());
         findViewById(R.id.clear_button).setOnClickListener(view -> clearButtonClick());
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         mItemNumTodayTextView.setText(numItems);
         mItemNumOverdueTextView.setText(numItems);
+        mItemNumTextView.setText(numItems);
     }
 
     @Override

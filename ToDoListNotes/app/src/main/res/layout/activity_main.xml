@@ -9,68 +9,91 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/due_today_text"
-        android:text="@string/due_today"
+        android:id="@+id/num_of_tasks_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="64dp"
+        android:text="@string/num_of_tasks"
+        android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/num_of_tasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toRightOf="@+id/num_of_tasks_text"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp" />
+        tools:text="Num" />
+
+    <TextView
+        android:id="@+id/due_today_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/due_today"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/due_today"
-        android:textColor="@color/blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="30sp"
         app:layout_constraintLeft_toRightOf="@+id/due_today_text"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp"
         tools:text="Due" />
 
     <TextView
         android:id="@+id/overdue_text"
-        android:text="@string/overdue"
-        android:textColor="@color/red"
-        android:layout_marginLeft="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/overdue"
+        android:textColor="@color/red"
+        android:textSize="30sp"
         app:layout_constraintLeft_toRightOf="@+id/due_today"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/overdue"
-        android:textColor="@color/blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/red"
+        android:textSize="30sp"
         app:layout_constraintLeft_toRightOf="@+id/overdue_text"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp"
         tools:text="Overdue" />
 
     <EditText
         android:id="@+id/todo_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="80dp"
         android:inputType="text"
         android:maxLines="1"
         android:textSize="30sp"
-    app:layout_constraintRight_toLeftOf="@+id/add_button"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/add_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/add_button"
-        android:text="@string/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/add"
         android:textColor="@color/green_800"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/due_today" />
-
 
     <ScrollView
         android:layout_width="match_parent"

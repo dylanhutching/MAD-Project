@@ -22,7 +22,7 @@
     <string name="medium">Medium</string>
     <string name="low">Low</string>
     <!-- Strings used for main activity -->
-    <string name="num_of_tasks"># of Tasks:</string>
+    <string name="num_of_tasks">Number of Tasks:</string>
     <string name="due_today">Due today:</string>
     <string name="overdue">Overdue:</string>
     <string name="title">Title</string>
