@@ -1,5 +1,6 @@
 package com.ung.todolistnotes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -64,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.tasks:
-                setContentView(R.layout.activity_main);
+                startActivity(new Intent(this, MainActivity.class)); //B4 changing to startActivity(), swapping activities would delete the list. With this line OnResume() is called automatically, which reads the list like needed.
+                //setContentView(R.layout.activity_main);
                 Toast.makeText(this, "Tasks", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.delete_task:
@@ -72,12 +74,16 @@ public class MainActivity extends AppCompatActivity {
                 //This code will change with our new tasks list but this is for demo purposes
                 return true;
             case R.id.new_category:
-                setContentView(R.layout.activity_new_category);
+                startActivity(new Intent(this, NewCategoryActivity.class));
+                //setContentView(R.layout.activity_new_category);
                 Toast.makeText(this, "New Category", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.new_task:
-                setContentView(R.layout.activity_new_tasks);
+                //setContentView(R.layout.activity_new_tasks);
                 Toast.makeText(this, "New Task", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, NewTasksActivity.class);    //Intents allow us to pass data between activities, and properly call onResume(), OnStart(), etc.
+                i.putExtra("selected_task_index", 0); //for testing this extra is set to 0, later it will be set to the selected task index. Additionally, we can check if this value is -1 (the default set inside of NewTasksActivity.java), to determine if we are trying to edit or make a new task in the other activity.
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
