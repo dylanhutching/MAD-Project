@@ -62,7 +62,9 @@ public class NewTasksActivity extends AppCompatActivity {
 
     //Spinner spinner = findViewById(R.id.priority_picker);
     /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-            R.array.priorities_array, android.R.layout.simple_spinner_item);
+      R.array.sizes_array, android.R.layout.simple_spinner_item);
+adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+spinner.setAdapter(adapter);
 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
