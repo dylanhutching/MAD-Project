@@ -10,9 +10,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.time.LocalDate;
+
 public class NewCategoryActivity extends AppCompatActivity {
 
     private EditText mTitleEditText;
+    int colorId = R.color.white;
 
     public static final String COLOR = "com.ung.todolistnotes.color";
 
@@ -22,6 +25,7 @@ public class NewCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_category);
 
         mTitleEditText = findViewById(R.id.category_title);
+        findViewById(R.id.add_category_button).setOnClickListener(view -> addCatClick());
     }
 
     @Override
@@ -42,8 +46,15 @@ public class NewCategoryActivity extends AppCompatActivity {
         }
     }
 
+    private void addCatClick() {
+        Intent intent = new Intent();
+        intent.putExtra(COLOR, colorId);
+        setResult(RESULT_OK, intent);
+        finish();
+        Toast.makeText(this, "New Category added", Toast.LENGTH_SHORT).show();
+    }
+
     public void onColorSelected(View view) {
-        int colorId = R.color.white;
         if (view.getId() == R.id.radio_orange) {
             colorId = R.color.orange;
         }
@@ -71,13 +82,5 @@ public class NewCategoryActivity extends AppCompatActivity {
         else if (view.getId() == R.id.radio_pink) {
             colorId = R.color.pink;
         }
-        else if (view.getId() == R.id.radio_black) {
-            colorId = R.color.black;
-        }
-
-        Intent intent = new Intent();
-        intent.putExtra(COLOR, colorId);
-        setResult(RESULT_OK, intent);
-        finish();
     }
 }

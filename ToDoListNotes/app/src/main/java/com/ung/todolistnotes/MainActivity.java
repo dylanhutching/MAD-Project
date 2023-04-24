@@ -90,6 +90,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*ActivityResultLauncher<Intent> mCatResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            int colorId = data.getIntExtra(ColorActivity.COLOR, R.color.white);
+                            mShadingColor = ContextCompat.getColor(MainActivity.this, colorId);
+                        }
+                    }
+                }
+            });*/
+
     @Override
     protected void onResume() {
         super.onResume();

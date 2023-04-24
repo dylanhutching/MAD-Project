@@ -15,6 +15,7 @@
         android:layout_marginTop="40dp"
         android:labelFor="@id/category_title"
         android:text="@string/title_c"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintRight_toLeftOf="@id/category_title"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +28,7 @@
         android:layout_marginTop="20dp"
         android:inputType="text"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.303"
@@ -40,6 +42,7 @@
         android:layout_marginLeft="100dp"
         android:gravity="center"
         android:text="@string/color_select"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -113,13 +116,6 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/pink"
-            android:onClick="onColorSelected" />
-
-        <RadioButton
-            android:id="@+id/radio_black"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/black"
             android:onClick="onColorSelected" />
     </RadioGroup>
 

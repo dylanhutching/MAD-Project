@@ -25,6 +25,7 @@ public class NewTasksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_tasks);
 
         mTitleEditText = findViewById(R.id.task_title);
+        findViewById(R.id.add_task_button).setOnClickListener(view -> addTaskClick());
 
         //Below im trying to put the selected task description in mtitleedittext.
         /*int selected_task_index = getIntent().getIntExtra("selected_task_index", -1);
@@ -60,9 +61,14 @@ public class NewTasksActivity extends AppCompatActivity {
         }
     }
 
-    //Spinner spinner = findViewById(R.id.priority_picker);
-    /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-      R.array.sizes_array, android.R.layout.simple_spinner_item);
+    private void addTaskClick() {
+        finish();
+        Toast.makeText(this, "New Task added", Toast.LENGTH_SHORT).show();
+    }
+
+    /*Spinner spinner = findViewById(R.id.priority_picker);
+    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+      R.array.priorities_array, android.R.layout.simple_spinner_item);
 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 spinner.setAdapter(adapter);
 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

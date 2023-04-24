@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="64dp"
         android:text="@string/num_of_tasks"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,6 +23,7 @@
         android:id="@+id/num_of_tasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintLeft_toRightOf="@+id/num_of_tasks_text"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/due_today"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintLeft_toRightOf="@+id/due_today_text"
         app:layout_constraintTop_toTopOf="parent"
@@ -77,6 +81,7 @@
         android:layout_marginTop="80dp"
         android:inputType="text"
         android:maxLines="1"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -96,14 +101,48 @@
         app:layout_constraintTop_toTopOf="@+id/due_today" />
 
 
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/desc"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/todo_item" />
+
+    <TextView
+        android:id="@+id/due_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/due_date"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintLeft_toRightOf="@+id/desc"
+        app:layout_constraintTop_toTopOf="@+id/todo_item" />
+
+    <TextView
+        android:id="@+id/priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/priority"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintLeft_toRightOf="@+id/due_date"
+        app:layout_constraintTop_toTopOf="@+id/todo_item" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTasks"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/todo_item"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/clear_button"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 <!--
 
