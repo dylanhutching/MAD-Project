@@ -2,6 +2,7 @@ package com.ung.todolistnotes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import android.view.Menu;
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     //private final static String TAG = "MainActivity";
     public static ToDoList mToDoList;
     private List<Task> taskList;
-    public static CategoryReadWrite mCategoryReadWrite;
     private EditText mItemEditText;
     private TextView mItemListTextView;
     private TextView mItemNumTodayTextView;
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         mToDoList = new ToDoList(this);
         taskList = mToDoList.getTaskList();
-        mCategoryReadWrite = new CategoryReadWrite(this);
 
         //starts the recycler view by passing in data through adapter and setting a LayoutManager to position the items
         llm = new LinearLayoutManager(this);
@@ -75,13 +75,24 @@ public class MainActivity extends AppCompatActivity {
 
                 taskList.remove(viewHolder.getAdapterPosition());
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                try {
+                    mToDoList.saveToFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                displayNum();
 
                 Snackbar.make(rvTasks, deletedTask.getDesc() + " deleted.", Snackbar.LENGTH_LONG).setAction("Undo", view -> {
                     taskList.add(position, deletedTask);
                     adapter.notifyItemInserted(position);
+                    try {
+                        mToDoList.saveToFile();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     displayNum();
                 }).show();
-                displayNum();
+
             }
         }).attachToRecyclerView(rvTasks);
 
@@ -150,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             // Attempt to load a previously saved list
             mToDoList.readFromFile();
-            mCategoryReadWrite.readFromFile();
             adapter.notifyDataSetChanged();
             //displayList();
             displayNum();
@@ -166,8 +176,8 @@ public class MainActivity extends AppCompatActivity {
         int u = items.length;
         String numItems = Integer.toString(u);
 
-        mItemNumTodayTextView.setText(Integer.toString(mToDoList.GetNumDueToday()));
-        mItemNumOverdueTextView.setText(Integer.toString(mToDoList.GetNumOverdue()));
+        mItemNumTodayTextView.setText(numItems);
+        mItemNumOverdueTextView.setText(numItems);
         mItemNumTextView.setText(numItems);
     }
 
@@ -177,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // Save list for later
-            mCategoryReadWrite.saveToFile();
             mToDoList.saveToFile();
         }
         catch (IOException ex) {
