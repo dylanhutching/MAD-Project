@@ -4,24 +4,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class MainActivity extends AppCompatActivity {
     //private final static String TAG = "MainActivity";
     public static ToDoList mToDoList;
+    private List<Task> taskList;
     private EditText mItemEditText;
     private TextView mItemListTextView;
     private TextView mItemNumTodayTextView;
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.add_button).setOnClickListener(view -> addButtonClick());
 
         mToDoList = new ToDoList(this);
+        taskList = mToDoList.getTaskList();
 
         //starts the recycler view by passing in data through adapter and setting a LayoutManager to position the items
         llm = new LinearLayoutManager(this);
@@ -52,6 +59,29 @@ public class MainActivity extends AppCompatActivity {
 
         rvTasks.setLayoutManager(llm);
         rvTasks.setAdapter(adapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+
+                Task deletedTask = taskList.get(position);
+
+                taskList.remove(viewHolder.getAdapterPosition());
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+
+                Snackbar.make(rvTasks, deletedTask.getDesc() + " deleted.", Snackbar.LENGTH_LONG).setAction("Undo", view -> {
+                    taskList.add(position, deletedTask);
+                    adapter.notifyItemInserted(position);
+                }).show();
+
+            }
+        }).attachToRecyclerView(rvTasks);
 
         displayNum();
     }
@@ -121,9 +151,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public ToDoList getToDoList() {
-        return mToDoList;
-    }
 
     private void displayNum() {
         Task[] items = mToDoList.getItems();
