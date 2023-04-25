@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager llm;
     private RecyclerView rvTasks;
     private TasksAdapter adapter;
+    private boolean isOption1Removed = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.appbar_menu, menu);
+
+        // Hide option 1 if it is selected
+        if (isOption1Removed = true) {
+            menu.removeItem(R.id.tasks);
+        }
         return true;
     }
 
@@ -98,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class)); //B4 changing to startActivity(), swapping activities would delete the list. With this line OnResume() is called automatically, which reads the list like needed.
                 //setContentView(R.layout.activity_main);
                 Toast.makeText(this, "Tasks", Toast.LENGTH_SHORT).show();
+                isOption1Removed = true;
                 return true;
             case R.id.delete_task:
                 clearButtonClick();
