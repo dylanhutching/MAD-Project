@@ -14,9 +14,9 @@
     <string name="create">Create</string>
     <string name="color_select">Select a Color</string>
     <string-array name="priorities_array">
-        <item>High</item>
-        <item>Medium</item>
         <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
     </string-array>
     <!-- Strings used for main activity -->
     <string name="num_of_tasks">Number of Tasks:</string>

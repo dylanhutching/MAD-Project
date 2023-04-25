@@ -4,27 +4,49 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class NewTasksActivity extends AppCompatActivity {
+import com.google.android.material.navigation.NavigationBarView;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class NewTasksActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, CalendarView.OnDateChangeListener {
 
     private EditText mTitleEditText;
-
-
-
+    private Task task;
+    private ToDoList toDoList = MainActivity.mToDoList;
+    private CalendarView datePicker;
+    private String desc;
+    private LocalDate date;
+    private int priority;
+    private int category;
+    private String[] priorities;
+    private String[] categories = {"School", "Work", "Other"};
+    private Spinner prioritySpinner;
+    private Spinner categorySpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_tasks);
 
-        mTitleEditText = findViewById(R.id.task_title);
+        datePicker = (CalendarView) findViewById(R.id.date_picker);
+        datePicker.setOnDateChangeListener(this);
+
+
+        mTitleEditText = (EditText) findViewById(R.id.task_title);
         findViewById(R.id.add_task_button).setOnClickListener(view -> addTaskClick());
 
         //Below im trying to put the selected task description in mtitleedittext.
@@ -36,6 +58,20 @@ public class NewTasksActivity extends AppCompatActivity {
             //read task from that line in the file.
             mTitleEditText.setText();
         }*/
+        priorities = getResources().getStringArray(R.array.priorities_array);
+
+        prioritySpinner = findViewById(R.id.priority_picker);
+        categorySpinner = findViewById(R.id.category_picker);
+        prioritySpinner.setOnItemSelectedListener(this);
+        categorySpinner.setOnItemSelectedListener(this);
+
+        ArrayAdapter priorityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, priorities);
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        prioritySpinner.setAdapter(priorityAdapter);
+
+        ArrayAdapter categoryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categories);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categoryAdapter);
 
     }
 
@@ -62,8 +98,36 @@ public class NewTasksActivity extends AppCompatActivity {
     }
 
     private void addTaskClick() {
+        desc = String.valueOf(mTitleEditText.getText());
+        priority = prioritySpinner.getSelectedItemPosition();
+        category = categorySpinner.getSelectedItemPosition();
+
+        task = new Task(desc, date, priority, category);
+
+        toDoList.addItem(task);
+        try {
+            toDoList.saveToFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         finish();
         Toast.makeText(this, "New Task added", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+        date = LocalDate.of(i, (i1+1), i2);
     }
 
     /*Spinner spinner = findViewById(R.id.priority_picker);

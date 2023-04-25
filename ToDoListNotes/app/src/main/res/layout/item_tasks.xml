@@ -12,7 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="25dp"/>
+        android:textSize="25dp"
+        android:paddingLeft="5dp"
+        />
 
     <TextView
         android:id="@+id/task_date"
@@ -20,7 +22,15 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="20dp"
-        android:paddingHorizontal="10dp"
+        android:paddingLeft="70dp"
+        />
+
+    <TextView
+        android:id="@+id/task_priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="20dp"
         />
 
 

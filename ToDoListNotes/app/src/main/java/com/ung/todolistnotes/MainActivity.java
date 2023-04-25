@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     //private final static String TAG = "MainActivity";
-    private ToDoList mToDoList;
+    public static ToDoList mToDoList;
     private EditText mItemEditText;
     private TextView mItemListTextView;
     private TextView mItemNumTodayTextView;
@@ -112,12 +112,17 @@ public class MainActivity extends AppCompatActivity {
         try {
             // Attempt to load a previously saved list
             mToDoList.readFromFile();
+            adapter.notifyDataSetChanged();
             //displayList();
             displayNum();
         }
         catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public ToDoList getToDoList() {
+        return mToDoList;
     }
 
     private void displayNum() {

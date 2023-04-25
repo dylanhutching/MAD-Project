@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -15,14 +16,20 @@ import java.util.Locale;
 
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
+    private List<Task> mTasks;
+    private String[] priorities = {"Low", "Medium", "High"};
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM", Locale.US); //formats task date int dd/mm for recycler view
+    public TasksAdapter(List<Task> tasks){
+        mTasks = tasks;
+    }
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd", Locale.US); //formats task date int dd/mm for recycler view
     //Provide direct reference to each of the views within a data item
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         //items displayed in each row
         public TextView taskTextView;
         public TextView dateTextView;
+        public TextView priorityTextView;
 
         //constructor that accepts entire item row
         public ViewHolder(View itemView){
@@ -30,14 +37,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
             taskTextView = (TextView) itemView.findViewById(R.id.task_desc);
             dateTextView = (TextView) itemView.findViewById(R.id.task_date);
+            priorityTextView = (TextView) itemView.findViewById(R.id.task_priority);
         }
     }
 
-    private List<Task> mTasks;
 
-    public TasksAdapter(List<Task> tasks){
-        mTasks = tasks;
-    }
     //inflates custom layout from item_tasks.xml that is applied to each row
     @Override
     public TasksAdapter.ViewHolder onCreateViewHolder(ViewGroup view, int viewType){
@@ -57,13 +61,16 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         //get each task from tasklist
         Task task = mTasks.get(position);
         //format LocalDate and change to String
-        String date = formatter.format(task.getDate());
+        String date = formatter.format(task.getDate());;
+        String priority = priorities[task.getPriority()];
         //set values of textviews
         TextView textView = holder.taskTextView;
         TextView textView1 = holder.dateTextView;
+        TextView textView2 = holder.priorityTextView;
 
         textView.setText(task.getDesc());
         textView1.setText(date);
+        textView2.setText(priority);
 
     }
     @Override
