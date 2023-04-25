@@ -4,9 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,24 +16,22 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.navigation.NavigationBarView;
-
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class NewTasksActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, CalendarView.OnDateChangeListener {
 
     private EditText mTitleEditText;
     private Task task;
     private ToDoList toDoList = MainActivity.mToDoList;
+    private CategoryReadWrite categoryReadWrite = MainActivity.mCategoryReadWrite;
     private CalendarView datePicker;
     private String desc;
     private LocalDate date;
     private int priority;
     private int category;
     private String[] priorities;
-    private String[] categories = {"School", "Work", "Other"};
+    private String[] categoryTitles;
     private Spinner prioritySpinner;
     private Spinner categorySpinner;
     @Override
@@ -69,7 +66,20 @@ public class NewTasksActivity extends AppCompatActivity implements AdapterView.O
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         prioritySpinner.setAdapter(priorityAdapter);
 
-        ArrayAdapter categoryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categories);
+        try {
+            categoryReadWrite.readFromFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Category[] tempCategories = categoryReadWrite.getCategories();
+        categoryTitles = new String[tempCategories.length];
+        for (int i = 0; i < categoryReadWrite.getCategories().length; i++) {
+            categoryTitles[i] = tempCategories[i].getTitle();
+        }
+
+        ArrayAdapter categoryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryTitles);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
 
@@ -98,6 +108,14 @@ public class NewTasksActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void addTaskClick() {
+        if(TextUtils.isEmpty(mTitleEditText.getText().toString())){
+            Toast.makeText(this, "Please Enter a Title.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(date == null)
+            date = LocalDate.now();
+
         desc = String.valueOf(mTitleEditText.getText());
         priority = prioritySpinner.getSelectedItemPosition();
         category = categorySpinner.getSelectedItemPosition();
@@ -110,6 +128,8 @@ public class NewTasksActivity extends AppCompatActivity implements AdapterView.O
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
 
         finish();
         Toast.makeText(this, "New Task added", Toast.LENGTH_SHORT).show();

@@ -12,7 +12,7 @@
         android:id="@+id/num_of_tasks_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="64dp"
+        android:layout_marginLeft="0dp"
         android:text="@string/num_of_tasks"
         android:textColor="@color/black"
         android:textSize="30sp"
@@ -36,7 +36,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/due_today"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintLeft_toRightOf="@+id/due_today_text"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Due" />
@@ -55,11 +55,11 @@
         android:id="@+id/overdue_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="40dp"
         android:text="@string/overdue"
         android:textColor="@color/red"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintLeft_toRightOf="@+id/due_today"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,30 +67,20 @@
         android:id="@+id/overdue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="40dp"
         android:textColor="@color/red"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintLeft_toRightOf="@+id/overdue_text"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Overdue" />
 
     <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/desc"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/due_today_text" />
-
-    <TextView
         android:id="@+id/due_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="44dp"
         android:text="@string/due_date"
         android:textColor="@color/black"
         android:textSize="25sp"
@@ -98,25 +88,37 @@
         app:layout_constraintTop_toTopOf="@+id/due_today_text" />
 
     <TextView
-        android:id="@+id/priority"
+        android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/priority"
+        android:layout_marginTop="44dp"
+        android:text="@string/desc"
         android:textColor="@color/black"
         android:textSize="25sp"
-        app:layout_constraintLeft_toRightOf="@+id/due_date"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/due_today_text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTasks"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/desc" />
+
+    <TextView
+        android:id="@+id/priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/priority"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintLeft_toRightOf="@+id/due_date"
+        app:layout_constraintTop_toTopOf="@+id/due_today_text" />
 
     <!--
 

@@ -94,6 +94,8 @@ public class ToDoList {
             if(!taskFields[1].equals("null")) {
                 String[] dateStringSplit = taskFields[1].split("-"); //This splits the date into an array of strings. The date is saved in file with a format of "2000-11-06". Indexes equal 0==2000, 1==11, and 2==06.
                 dueDate = LocalDate.of(Integer.parseInt(dateStringSplit[0]), Integer.parseInt(dateStringSplit[1]), Integer.parseInt(dateStringSplit[2]));   //This line creates a new LocalDate called dueDate by parsing the String[] above as integers.
+            }else{
+                taskFields[1] = "2000-11-6";
             }
 
             //parse priority
@@ -105,5 +107,26 @@ public class ToDoList {
 
         //pass above fields to create new task. Then add task to list.
         return new Task(description, dueDate, priority, category);
+    }
+
+    public int GetNumOverdue(){
+        int numOverdue = 0;
+        for(Task task: mTaskList)
+        {
+            if(task.getDate().isBefore(LocalDate.now()))
+                numOverdue++;
+        }
+        return numOverdue;
+    }
+
+    public int GetNumDueToday(){
+        int numDue = 0;
+        for(Task task: mTaskList)
+        {
+            Log.i("AndroidRuntime", task.getDate()+" "+LocalDate.now());
+            if(task.getDate().equals(LocalDate.now()))
+                numDue++;
+        }
+        return numDue;
     }
 }

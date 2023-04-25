@@ -3,7 +3,10 @@ package com.ung.todolistnotes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 import java.time.LocalDate;
 
 public class NewCategoryActivity extends AppCompatActivity {
+
+    private CategoryReadWrite categoryReadWrite = MainActivity.mCategoryReadWrite;
 
     private EditText mTitleEditText;
     int colorId = R.color.white;
@@ -37,7 +42,7 @@ public class NewCategoryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.tasks:
-                startActivity(new Intent(this, MainActivity.class)); //B4 changing to startActivity(), swapping activities would delete the list. With this line OnResume() is called automatically, which reads the list like needed.
+                startActivity(new Intent(this, MainActivity.class));
                 //setContentView(R.layout.activity_main);
                 Toast.makeText(this, "Tasks", Toast.LENGTH_SHORT).show();
                 return true;
@@ -47,11 +52,21 @@ public class NewCategoryActivity extends AppCompatActivity {
     }
 
     private void addCatClick() {
-        Intent intent = new Intent();
+        /*Intent intent = new Intent();
         intent.putExtra(COLOR, colorId);
-        setResult(RESULT_OK, intent);
-        finish();
-        Toast.makeText(this, "New Category added", Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK, intent);*/
+
+        Log.i("AndroidRuntime", mTitleEditText.getText().toString());
+
+        if(colorId == R.color.white){
+            Toast.makeText(this, "Please Select a Color.", Toast.LENGTH_SHORT).show();
+        }else if(TextUtils.isEmpty(mTitleEditText.getText().toString())){
+            Toast.makeText(this, "Please Enter a Title.", Toast.LENGTH_SHORT).show();
+        }else{
+            categoryReadWrite.addItem(mTitleEditText.getText().toString(), colorId);
+            finish();
+            Toast.makeText(this, "New Category added", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onColorSelected(View view) {
