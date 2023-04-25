@@ -75,10 +75,22 @@ public class MainActivity extends AppCompatActivity {
 
                 taskList.remove(viewHolder.getAdapterPosition());
                 adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                try {
+                    mToDoList.saveToFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                displayNum();
 
                 Snackbar.make(rvTasks, deletedTask.getDesc() + " deleted.", Snackbar.LENGTH_LONG).setAction("Undo", view -> {
                     taskList.add(position, deletedTask);
                     adapter.notifyItemInserted(position);
+                    try {
+                        mToDoList.saveToFile();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    displayNum();
                 }).show();
 
             }
