@@ -1,5 +1,0 @@
-<resources>
-    <style name="Theme.ToDoList" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/red</item>
-    </style>
-</resources>
