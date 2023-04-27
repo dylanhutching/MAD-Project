@@ -140,21 +140,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*ActivityResultLauncher<Intent> mCatResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data != null) {
-                            int colorId = data.getIntExtra(ColorActivity.COLOR, R.color.white);
-                            mShadingColor = ContextCompat.getColor(MainActivity.this, colorId);
-                        }
-                    }
-                }
-            });*/
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -164,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
             mToDoList.readFromFile();
             mCategoryReadWrite.readFromFile();
             adapter.notifyDataSetChanged();
-            //displayList();
             displayNum();
         }
         catch (IOException ex) {
@@ -213,18 +197,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*private void displayList() {
-
-        // Display a numbered list of items
-        StringBuffer itemText = new StringBuffer();
-        Task[] items = mToDoList.getItems();
-        for (int i = 0; i < items.length; i++) {
-            itemText.append(i + 1).append(". ").append(items[i].getDesc()).append("\n");
-        }
-
-        mItemListTextView.setText(itemText);
-    }*/
-
     private void clearButtonClick() {
         mToDoList.clear();
         try {
@@ -234,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-        //displayList();
         adapter.notifyDataSetChanged();
         displayNum();
     }

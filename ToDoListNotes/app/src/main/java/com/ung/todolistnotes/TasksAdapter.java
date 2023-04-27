@@ -71,6 +71,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         textView.setText(task.getDesc());
         textView1.setText(date);
         textView2.setText(priority);
+        //textView.setTextColor();
+        //textView1.setTextColor();
+        //textView2.setTextColor();
 
     }
     @Override

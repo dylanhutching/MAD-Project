@@ -9,11 +9,10 @@
 
     <TextView
         android:id="@+id/task_desc"
-        android:layout_width="161dp"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingLeft="5dp"
-        android:textColor="@color/black"
         android:textSize="25dp" />
 
     <TextView
@@ -22,14 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingLeft="10dp"
-        android:textColor="@color/black"
         android:textSize="20dp" />
 
     <TextView
         android:id="@+id/task_priority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:layout_weight="1"
         android:paddingLeft="10dp"
         android:textSize="20dp"
