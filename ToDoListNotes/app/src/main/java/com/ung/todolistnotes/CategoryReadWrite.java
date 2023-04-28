@@ -52,8 +52,8 @@ public class CategoryReadWrite {
 
         Category[] items = new Category[tempCategoryList.size()];
 
-        for(Category item: tempCategoryList.toArray(items))
-            Log.i("AndroidRuntime", String.valueOf(item.getColorId())); //this line displays tasks as they are being read. FOR DEBUGGING. pro tip set logcat filter to AndroidRuntime
+        //for(Category item: tempCategoryList.toArray(items))
+            //Log.i("AndroidRuntime", String.valueOf(item.getColorId())); //this line displays tasks as they are being read. FOR DEBUGGING. pro tip set logcat filter to AndroidRuntime
 
         return tempCategoryList.toArray(items);
     }
@@ -81,10 +81,10 @@ public class CategoryReadWrite {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] taskFields = line.split("____");
+                //Log.i("AndroidRuntime", line);
+                String[] fields = line.split("____");
 
-                mCategoryList.add(new Category(taskFields[0], Integer.parseInt(taskFields[1])));
-
+                mCategoryList.add(new Category(fields[0], Integer.parseInt(fields[1])));
             }
         }
         catch (FileNotFoundException ex) {

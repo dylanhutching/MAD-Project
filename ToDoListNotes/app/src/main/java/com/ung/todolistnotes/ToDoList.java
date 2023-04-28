@@ -12,6 +12,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ToDoList {
@@ -128,5 +131,58 @@ public class ToDoList {
                 numDue++;
         }
         return numDue;
+    }
+
+    public void SortByDueDate(){
+        Log.i("AndroidRuntime", "Before: " + getDescriptions());
+        Collections.sort(mTaskList, new dueDateTaskComparator());
+        Log.i("AndroidRuntime", "After : " + getDescriptions());
+    }
+
+    public void SortByPriority(){
+        Log.i("AndroidRuntime", "Before: " + getDescriptions());
+        Collections.sort(mTaskList, new priorityTaskComparator());
+        Log.i("AndroidRuntime", "After : " + getDescriptions());
+    }
+
+    public class dueDateTaskComparator implements Comparator<Task> {
+        @Override
+        public int compare(Task task1, Task task2) {
+            int value1 = task1.getDate().compareTo(task2.getDate());
+            if (value1 == 0) {
+                int value2 = Integer.compare(task2.getPriority(), task1.getPriority());
+                if (value2 == 0) {
+                    return Integer.compare(task1.getCategory(), task2.getCategory());
+                } else {
+                    return value2;
+                }
+            }
+            return value1;
+        }
+    }
+
+    public class priorityTaskComparator implements Comparator<Task> {
+        @Override
+        public int compare(Task task1, Task task2) {
+            int value1 = Integer.compare(task2.getPriority(), task1.getPriority());
+            if (value1 == 0) {
+                int value2 = task1.getDate().compareTo(task2.getDate());
+                if (value2 == 0) {
+                    return Integer.compare(task1.getCategory(), task2.getCategory());
+                } else {
+                    return value2;
+                }
+            }
+            return value1;
+        }
+    }
+
+    public String getDescriptions(){
+        String descriptionsConcatenated = "";
+        for(Task task: mTaskList){
+            descriptionsConcatenated += task.getDesc() + ", ";
+        }
+
+        return descriptionsConcatenated;
     }
 }

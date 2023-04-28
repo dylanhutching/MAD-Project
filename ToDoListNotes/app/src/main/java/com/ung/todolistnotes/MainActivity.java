@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView mItemNumTodayTextView;
     private TextView mItemNumOverdueTextView;
     private TextView mItemNumTextView;
+    private TextView mDueDateTextView;
+    private TextView mPriorityTextView;
     private LinearLayoutManager llm;
     private RecyclerView rvTasks;
     private TasksAdapter adapter;
@@ -49,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
         mItemNumOverdueTextView = findViewById(R.id.overdue);
         mItemNumTextView = findViewById(R.id.num_of_tasks);
 
-        //findViewById(R.id.priority).setOnClickListener(view -> SortByPriority());
-        //findViewById(R.id.due_date).setOnClickListener(view -> SortByDueDate());
+        mPriorityTextView = findViewById(R.id.priority);
+        mDueDateTextView = findViewById(R.id.due_date);
+
+        findViewById(R.id.priority).setOnClickListener(view -> SortByPriority());
+        findViewById(R.id.due_date).setOnClickListener(view -> SortByDueDate());
 
         mToDoList = new ToDoList(this);
         taskList = mToDoList.getTaskList();
@@ -148,7 +154,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             // Attempt to load a previously saved list
             mToDoList.readFromFile();
+
             mCategoryReadWrite.readFromFile();
+            mToDoList.SortByDueDate();
             adapter.notifyDataSetChanged();
             displayNum();
         }
@@ -181,23 +189,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void addButtonClick() {
-
-        // Ignore any leading or trailing spaces
-        String taskDescription = mItemEditText.getText().toString().trim();
-
-        // Clear the EditText so it's ready for another item
-        mItemEditText.setText("");
-
-        // Add the item to the list and display it
-        if (taskDescription.length() > 0) {
-            mToDoList.addItem(new Task(taskDescription, LocalDate.of(2000,11,6),1,1));
-            //displayList();
-            adapter.notifyDataSetChanged();
-            displayNum();
-        }
-    }
-
     private void clearButtonClick() {
         mToDoList.clear();
         try {
@@ -212,15 +203,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SortByDueDate(){
-        //sort task list. Idk how to do multilayer sorting.
-        //first layer is due date, second layer is priority, third layer is category, fourth layer is alphabetical
+        mToDoList.SortByDueDate();
+        adapter.notifyDataSetChanged();
 
+        mDueDateTextView.setTextColor(ContextCompat.getColor(this, R.color.green_light));
+        mPriorityTextView.setTextColor(ContextCompat.getColor(this, R.color.grey));
     }
 
     public void SortByPriority(){
-        //sort task list. Idk how to do multilayer sorting.
-        //first layer is priority, second layer is due date, third layer is category, fourth layer is alphabetical
+        mToDoList.SortByPriority();
+        adapter.notifyDataSetChanged();
 
+        mPriorityTextView.setTextColor(ContextCompat.getColor(this, R.color.green_light));
+        mDueDateTextView.setTextColor(ContextCompat.getColor(this, R.color.grey));
     }
 
 }
