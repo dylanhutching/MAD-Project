@@ -18,6 +18,7 @@ import java.util.Locale;
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
     private List<Task> mTasks;
     private String[] priorities = {"Low", "Medium", "High"};
+    private CategoryReadWrite categoryReadWrite = MainActivity.mCategoryReadWrite;
 
     public TasksAdapter(List<Task> tasks){
         mTasks = tasks;
@@ -71,9 +72,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         textView.setText(task.getDesc());
         textView1.setText(date);
         textView2.setText(priority);
-        //textView.setTextColor();
-        //textView1.setTextColor();
-        //textView2.setTextColor();
+
+        int color = categoryReadWrite.getCategories()[task.getCategory()].getColorId();
+        textView.setTextColor(color);
+        textView1.setTextColor(color);
+        textView2.setTextColor(color);
 
     }
     @Override

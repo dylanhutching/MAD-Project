@@ -3,6 +3,8 @@ package com.ung.todolistnotes;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.core.content.ContextCompat;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,12 +45,16 @@ public class CategoryReadWrite {
 
     public Category[] getCategories() {
         List<Category> tempCategoryList = new ArrayList<>();
-        tempCategoryList.add(new Category("School", R.color.blue)); // add new colors in greyscale
-        tempCategoryList.add(new Category("Work", R.color.orange));
-        tempCategoryList.add(new Category("Other", R.color.purple));
+        tempCategoryList.add(new Category("Personal", ContextCompat.getColor(mContext, R.color.black))); // add new colors in greyscale
+        tempCategoryList.add(new Category("School", ContextCompat.getColor(mContext, R.color.grey_dark)));
+        tempCategoryList.add(new Category("Work", ContextCompat.getColor(mContext, R.color.grey)));
         tempCategoryList.addAll(mCategoryList);
 
         Category[] items = new Category[tempCategoryList.size()];
+
+        for(Category item: tempCategoryList.toArray(items))
+            Log.i("AndroidRuntime", String.valueOf(item.getColorId())); //this line displays tasks as they are being read. FOR DEBUGGING. pro tip set logcat filter to AndroidRuntime
+
         return tempCategoryList.toArray(items);
     }
 
@@ -78,7 +84,7 @@ public class CategoryReadWrite {
                 String[] taskFields = line.split("____");
 
                 mCategoryList.add(new Category(taskFields[0], Integer.parseInt(taskFields[1])));
-                Log.i("AndroidRuntime", line); //this line displays tasks as they are being read. FOR DEBUGGING. pro tip set logcat filter to AndroidRuntime
+
             }
         }
         catch (FileNotFoundException ex) {

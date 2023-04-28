@@ -2,6 +2,9 @@ package com.ung.todolistnotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,19 +21,24 @@ import java.time.LocalDate;
 public class NewCategoryActivity extends AppCompatActivity {
 
     private CategoryReadWrite categoryReadWrite = MainActivity.mCategoryReadWrite;
+    private static Context mContext;
 
     private EditText mTitleEditText;
-    int colorId = R.color.white;
+    int colorId;
 
     public static final String COLOR = "com.ung.todolistnotes.color";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
+
         setContentView(R.layout.activity_new_category);
 
         mTitleEditText = findViewById(R.id.category_title);
         findViewById(R.id.add_category_button).setOnClickListener(view -> addCatClick());
+
+        colorId = ContextCompat.getColor(this, R.color.white);
     }
 
     @Override
@@ -58,7 +66,7 @@ public class NewCategoryActivity extends AppCompatActivity {
 
         Log.i("AndroidRuntime", mTitleEditText.getText().toString());
 
-        if(colorId == R.color.white){
+        if(colorId == ContextCompat.getColor(this, R.color.white)){
             Toast.makeText(this, "Please Select a Color.", Toast.LENGTH_SHORT).show();
         }else if(TextUtils.isEmpty(mTitleEditText.getText().toString())){
             Toast.makeText(this, "Please Enter a Title.", Toast.LENGTH_SHORT).show();
@@ -71,31 +79,31 @@ public class NewCategoryActivity extends AppCompatActivity {
 
     public void onColorSelected(View view) {
         if (view.getId() == R.id.radio_orange) {
-            colorId = R.color.orange;
+            colorId = ContextCompat.getColor(this, R.color.orange);
         }
         if (view.getId() == R.id.radio_yellow) {
-            colorId = R.color.yellow;
+            colorId = ContextCompat.getColor(this, R.color.yellow);
         }
         else if (view.getId() == R.id.radio_red) {
-            colorId = R.color.red;
+            colorId = ContextCompat.getColor(this, R.color.red);
         }
         else if (view.getId() == R.id.radio_green_light) {
-            colorId = R.color.green_light;
+            colorId = ContextCompat.getColor(this, R.color.green_light);
         }
         else if (view.getId() == R.id.radio_blue) {
-            colorId = R.color.blue;
+            colorId = ContextCompat.getColor(this, R.color.blue);
         }
         else if (view.getId() == R.id.radio_teal) {
-            colorId = R.color.teal;
+            colorId = ContextCompat.getColor(this, R.color.teal);
         }
         else if (view.getId() == R.id.radio_blue_light) {
-            colorId = R.color.blue_light;
+            colorId = ContextCompat.getColor(this, R.color.blue_light);
         }
         else if (view.getId() == R.id.radio_purple) {
-            colorId = R.color.purple;
+            colorId = ContextCompat.getColor(this, R.color.purple);
         }
         else if (view.getId() == R.id.radio_pink) {
-            colorId = R.color.pink;
+            colorId = ContextCompat.getColor(this, R.color.pink);
         }
     }
 }

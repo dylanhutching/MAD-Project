@@ -69,7 +69,7 @@ public class ToDoList {
                 Task newTask = ConvertLineToTask(line); //THIS IS THE NEW METHOD CALL
 
                 mTaskList.add(newTask);
-                Log.i("AndroidRuntime", newTask.toString()); //this line displays tasks as they are being read. FOR DEBUGGING. pro tip set logcat filter to AndroidRuntime
+                //Log.i("AndroidRuntime", newTask.toString()); //this line displays tasks as they are being read. FOR DEBUGGING. pro tip set logcat filter to AndroidRuntime
             }
         }
         catch (FileNotFoundException ex) {
@@ -123,7 +123,7 @@ public class ToDoList {
         int numDue = 0;
         for(Task task: mTaskList)
         {
-            Log.i("AndroidRuntime", task.getDate()+" "+LocalDate.now());
+
             if(task.getDate().equals(LocalDate.now()))
                 numDue++;
         }

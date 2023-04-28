@@ -44,57 +44,59 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/priority_c"
+        android:layout_marginTop="16dp"
         android:labelFor="@+id/priority_picker"
+        android:text="@string/priority_c"
         android:textColor="@color/black"
-        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/priority_picker"
         app:layout_constraintRight_toLeftOf="@id/priority_picker"
-        app:layout_constraintTop_toBottomOf="@id/date_picker"
-        />
+        app:layout_constraintTop_toBottomOf="@id/date_picker" />
 
     <Spinner
         android:id="@+id/priority_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_picker"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/category"
-        android:labelFor="@+id/category_picker"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        app:layout_constraintRight_toLeftOf="@id/category_picker"
-        app:layout_constraintTop_toBottomOf="@id/priority_picker"
-        />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_picker" />
 
     <Spinner
         android:id="@+id/category_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/priority_picker"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priority_picker" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:labelFor="@+id/category_picker"
+        android:text="@string/category"
+        android:textColor="@color/black"
+        app:layout_constraintRight_toLeftOf="@id/category_picker"
+        app:layout_constraintTop_toBottomOf="@id/priority_picker" />
 
     <Button
         android:id="@+id/add_task_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="75dp"
-        android:text="@string/create"
-        android:paddingVertical="20dp"
         android:paddingHorizontal="50dp"
+        android:paddingVertical="20dp"
+        android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/category_picker"
+        app:layout_constraintVertical_bias="0.168" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

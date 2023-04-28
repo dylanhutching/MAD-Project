@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         mItemNumOverdueTextView = findViewById(R.id.overdue);
         mItemNumTextView = findViewById(R.id.num_of_tasks);
 
-        //findViewById(R.id.add_button).setOnClickListener(view -> addButtonClick());
+        //findViewById(R.id.priority).setOnClickListener(view -> SortByPriority());
+        //findViewById(R.id.due_date).setOnClickListener(view -> SortByDueDate());
 
         mToDoList = new ToDoList(this);
         taskList = mToDoList.getTaskList();
@@ -209,4 +210,17 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         displayNum();
     }
+
+    public void SortByDueDate(){
+        //sort task list. Idk how to do multilayer sorting.
+        //first layer is due date, second layer is priority, third layer is category, fourth layer is alphabetical
+
+    }
+
+    public void SortByPriority(){
+        //sort task list. Idk how to do multilayer sorting.
+        //first layer is priority, second layer is due date, third layer is category, fourth layer is alphabetical
+
+    }
+
 }
