@@ -6,7 +6,7 @@ Built off Android API 28
 
 This Project is a Task Manager App with the following features:
 
----Create a task (assign it a name, assign it a category, set a priority, and set a due date).
+-Create a task (assign it a name, assign it a category, set a priority, and set a due date).
 
 -Delete a task by swiping the task right.
 
